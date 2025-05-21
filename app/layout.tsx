@@ -14,9 +14,8 @@ const geistMono = localFont({
 
 let title = "BioGenie – AI Bio Generator";
 let description = "Generate your next bio in seconds";
-let url = "https://www.twitterbio.io/";
-let ogimage = "https://www.twitterbio.io/og-image.png";
-let sitename = "twitterbio.io";
+let url = "https://boi-genie-faizanrauf6s-projects.vercel.app/";
+let sitename = "BioGenie";
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
@@ -26,7 +25,6 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
   openGraph: {
-    images: [ogimage],
     title,
     description,
     url: url,
@@ -44,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
-        <PlausibleProvider domain="twitterbio.io" />
+        <PlausibleProvider domain="https://boi-genie-faizanrauf6s-projects.vercel.app/" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
