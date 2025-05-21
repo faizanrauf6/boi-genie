@@ -26,14 +26,26 @@ export default function Home() {
   };
 
   const prompt = `Generate 3 ${
-    vibe === "Casual" ? "relaxed" : vibe === "Funny" ? "silly" : "Professional"
-  } twitter biographies with no hashtags and clearly labeled "1.", "2.", and "3.". Only return these 3 twitter bios, nothing else. ${
-    vibe === "Funny" ? "Make the biographies humerous" : ""
-  }Make sure each generated biography is less than 300 characters, has short sentences that are found in Twitter bios, and feel free to use this context as well: ${bio}${
+    vibe === "Casual" ? "relaxed" : vibe === "Funny" ? "silly" : "professional"
+  } personal bios with no hashtags and clearly labeled "1.", "2.", and "3.". Only return these 3 bios, nothing else. ${
+    vibe === "Funny" ? "Make the bios humorous. " : ""
+  }Make sure each bio is under 300 characters, uses short, natural sentences, and matches this context: ${bio}${
     bio.slice(-1) === "." ? "" : "."
   }`;
 
   const generateBio = async (e: any) => {
+    if (!bio) {
+      toast("Please enter a job or hobby", { icon: "❌" });
+      return;
+    }
+    if (bio.length > 100) {
+      toast("Bio is too long", { icon: "❌" });
+      return;
+    }
+    if (bio.length < 3) {
+      toast("Bio is too short", { icon: "❌" });
+      return;
+    }
     e.preventDefault();
     setGeneratedBios("");
     setLoading(true);
@@ -64,12 +76,9 @@ export default function Home() {
   return (
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Header />
-      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-12 sm:mt-20">
-        <p className="border rounded-2xl py-1 px-4 text-slate-500 text-sm mb-5 hover:scale-105 transition duration-300 ease-in-out">
-          <b>126,657</b> bios generated so far
-        </p>
+      <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-10 sm:mt-10">
         <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
-          Generate your next Twitter bio using AI
+          Generate your next bio using AI
         </h1>
         <div className="mt-7">
           <Toggle isGPT={isLlama} setIsGPT={setIsLlama} />
@@ -94,7 +103,7 @@ export default function Home() {
             onChange={(e) => setBio(e.target.value)}
             rows={4}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5"
-            placeholder={"e.g. Amazon CEO"}
+            placeholder={"e.g. Senior Software Engineer at Google"}
           />
           <div className="flex mb-5 items-center space-x-3">
             <Image src="/2-black.png" width={30} height={30} alt="1 icon" />
@@ -112,7 +121,7 @@ export default function Home() {
             </button>
           ) : (
             <button
-              className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+              className="bg-black text-white font-medium px-4 py-2 rounded-full sm:mt-10 mt-5 hover:bg-black/80 w-full"
               onClick={(e) => generateBio(e)}
             >
               Generate your bio &rarr;
@@ -125,7 +134,7 @@ export default function Home() {
           toastOptions={{ duration: 2000 }}
         />
         <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
-        <div className="space-y-10 my-10">
+        <div className="space-y-10 my-3">
           {generatedBios && (
             <>
               <div>
@@ -143,12 +152,10 @@ export default function Home() {
                   .map((generatedBio) => {
                     return (
                       <div
-                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-copy border"
+                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-pointer border flex justify-between items-start"
                         onClick={() => {
                           navigator.clipboard.writeText(generatedBio);
-                          toast("Bio copied to clipboard", {
-                            icon: "✂️",
-                          });
+                          toast("Bio copied to clipboard", { icon: "📋" });
                         }}
                         key={generatedBio}
                       >

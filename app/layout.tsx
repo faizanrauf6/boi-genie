@@ -12,8 +12,8 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
 });
 
-let title = "Tweetbio – AI Twitter Bio Generator";
-let description = "Generate your next Twitter bio in seconds";
+let title = "BioGenie – AI Bio Generator";
+let description = "Generate your next bio in seconds";
 let url = "https://www.twitterbio.io/";
 let ogimage = "https://www.twitterbio.io/og-image.png";
 let sitename = "twitterbio.io";
@@ -33,12 +33,6 @@ export const metadata: Metadata = {
     siteName: sitename,
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    images: [ogimage],
-    title,
-    description,
   },
 };
 
