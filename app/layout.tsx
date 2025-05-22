@@ -5,6 +5,7 @@ import PlausibleProvider from "next-plausible";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "../components/theme-provider";
+import AuthProvider from "../components/AuthProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -53,7 +54,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white text-black dark:bg-black dark:text-white`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
       </body>
     </html>
