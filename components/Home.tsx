@@ -124,14 +124,14 @@ export default function Home() {
 
           {loading ? (
             <button
-              className="bg-black rounded-xl text-white font-medium px-4 py-2 sm:mt-10 mt-8 hover:bg-black/80 w-full"
+              className="bg-black rounded-xl text-white font-medium px-4 py-3 sm:mt-10 mt-8 hover:bg-black/80 w-full"
               disabled
             >
               <LoadingDots color="white" style="large" />
             </button>
           ) : (
             <button
-              className="bg-black text-white font-medium px-4 py-2 rounded-full sm:mt-10 mt-5 hover:bg-black/80 w-full dark:text-black dark:bg-white dark:hover:bg-white/80"
+              className="bg-black text-white font-medium px-4 py-3 rounded-full sm:mt-10 mt-8 hover:bg-black/80 w-full dark:text-black dark:bg-white dark:hover:bg-white/80"
               onClick={(e) => generateBio(e)}
             >
               Generate your bio &rarr;
