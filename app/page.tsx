@@ -77,13 +77,13 @@ export default function Home() {
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
       <Header />
       <main className="flex flex-1 w-full flex-col items-center justify-center text-center px-4 mt-10 sm:mt-10">
-        <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-slate-900">
+        <h1 className="sm:text-6xl text-4xl max-w-[708px] font-bold text-gray-900 dark:text-gray-100">
           Generate your next bio using AI
         </h1>
+
         <div className="mt-7">
           <Toggle isGPT={isLlama} setIsGPT={setIsLlama} />
         </div>
-
         <div className="max-w-xl w-full">
           <div className="flex mt-10 items-center space-x-3">
             <Image
@@ -91,23 +91,34 @@ export default function Home() {
               width={30}
               height={30}
               alt="1 icon"
-              className="mb-5 sm:mb-0"
+              className="mb-5 sm:mb-0 dark:invert"
             />
-            <p className="text-left font-medium">
+            <p className="text-left font-medium text-gray-900 dark:text-gray-300">
               Drop in your job{" "}
-              <span className="text-slate-500">(or your favorite hobby)</span>.
+              <span className="text-gray-500 dark:text-gray-400">
+                (or your favorite hobby)
+              </span>
+              .
             </p>
           </div>
           <textarea
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             rows={4}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black my-5"
+            className="w-full rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm focus:border-black focus:ring-black my-5 dark:bg-zinc-900 dark:border-zinc-700 dark:text-gray-100 dark:focus:border-white dark:focus:ring-white"
             placeholder={"e.g. Senior Software Engineer at Google"}
           />
           <div className="flex mb-5 items-center space-x-3">
-            <Image src="/2-black.png" width={30} height={30} alt="1 icon" />
-            <p className="text-left font-medium">Select your vibe.</p>
+            <Image
+              src="/2-black.png"
+              width={30}
+              height={30}
+              alt="2 icon"
+              className="dark:invert"
+            />
+            <p className="text-left font-medium text-gray-900 dark:text-gray-300">
+              Select your vibe.
+            </p>
           </div>
           <div className="block">
             <DropDown vibe={vibe} setVibe={(newVibe) => setVibe(newVibe)} />
@@ -121,25 +132,25 @@ export default function Home() {
             </button>
           ) : (
             <button
-              className="bg-black text-white font-medium px-4 py-2 rounded-full sm:mt-10 mt-5 hover:bg-black/80 w-full"
+              className="bg-black text-white font-medium px-4 py-2 rounded-full sm:mt-10 mt-5 hover:bg-black/80 w-full dark:text-black dark:bg-white dark:hover:bg-white/80"
               onClick={(e) => generateBio(e)}
             >
               Generate your bio &rarr;
             </button>
           )}
         </div>
+
         <Toaster
           position="top-center"
           reverseOrder={false}
           toastOptions={{ duration: 2000 }}
         />
-        <hr className="h-px bg-gray-700 border-1 dark:bg-gray-700" />
         <div className="space-y-10 my-3">
           {generatedBios && (
             <>
               <div>
                 <h2
-                  className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto"
+                  className="sm:text-4xl text-3xl font-bold text-gray-900 dark:text-gray-100 mx-auto"
                   ref={bioRef}
                 >
                   Your generated bios
@@ -152,14 +163,14 @@ export default function Home() {
                   .map((generatedBio) => {
                     return (
                       <div
-                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 transition cursor-pointer border flex justify-between items-start"
+                        className="bg-white rounded-xl shadow-md p-4 hover:bg-gray-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 transition cursor-pointer border border-gray-300 dark:border-zinc-700 flex justify-between items-start"
                         onClick={() => {
                           navigator.clipboard.writeText(generatedBio);
                           toast("Bio copied to clipboard", { icon: "📋" });
                         }}
                         key={generatedBio}
                       >
-                        <p>{generatedBio}</p>
+                        <p className="text-gray-900 dark:text-gray-100">{generatedBio}</p>
                       </div>
                     );
                   })}

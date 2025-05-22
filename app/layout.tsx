@@ -1,21 +1,26 @@
+// ✅ DO NOT include "use client" at the top of this file
+
 import type { Metadata } from "next";
 import PlausibleProvider from "next-plausible";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "../components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
+  display: "swap",
 });
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
+  display: "swap",
 });
 
-let title = "BioGenie – AI Bio Generator";
-let description = "Generate your next bio in seconds";
-let url = "https://boi-genie-faizanrauf6s-projects.vercel.app/";
-let sitename = "BioGenie";
+const title = "BioGenie – AI Bio Generator";
+const description = "Generate your next bio in seconds";
+const url = "https://boi-genie-faizanrauf6s-projects.vercel.app/";
+const sitename = "BioGenie";
 
 export const metadata: Metadata = {
   metadataBase: new URL(url),
@@ -27,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description,
-    url: url,
+    url,
     siteName: sitename,
     locale: "en_US",
     type: "website",
@@ -36,18 +41,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <PlausibleProvider domain="https://boi-genie-faizanrauf6s-projects.vercel.app/" />
+        <PlausibleProvider domain="boi-genie-faizanrauf6s-projects.vercel.app" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white text-black dark:bg-black dark:text-white`}
       >
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
