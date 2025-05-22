@@ -71,6 +71,7 @@ export default function Home() {
 
     scrollToBios();
     setLoading(false);
+    setBio("");
   };
 
   return (
@@ -145,7 +146,7 @@ export default function Home() {
           <div className="space-y-10 my-3">
             <div>
               <h2
-                className="sm:text-4xl text-3xl font-bold text-gray-900 dark:text-gray-100 mx-auto"
+                className="sm:text-4xl text-3xl mt-5 font-bold text-gray-900 dark:text-gray-100 mx-auto"
                 ref={bioRef}
               >
                 Your generated bios
