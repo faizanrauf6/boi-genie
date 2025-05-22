@@ -27,9 +27,18 @@ export default function Header() {
 
         {session?.user ? (
           <>
-            <p className="text-sm text-gray-700 dark:text-gray-300">
-              Hello, {session?.user.name?.split(" ")[1] + " " + session?.user.name?.split(" ")[2]}
-            </p>
+            <div className="flex items-center space-x-2">
+              {session.user.image && (
+                <img
+                  src={session.user.image}
+                  alt={session.user.name ?? "User"}
+                  className="w-8 h-8 rounded-full border border-gray-300 dark:border-zinc-600"
+                />
+              )}
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                Hello, {session.user.name}
+              </p>
+            </div>
             <LogoutButton />
           </>
         ) : (
