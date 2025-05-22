@@ -12,6 +12,8 @@ import Toggle from "@/components/Toggle";
 import { ChatCompletionStream } from "together-ai/lib/ChatCompletionStream";
 
 export default function Home() {
+  const MAX_BIO_LENGTH = 200;
+
   const [loading, setLoading] = useState(false);
   const [bio, setBio] = useState("");
   const [vibe, setVibe] = useState<VibeType>("Professional");
@@ -33,12 +35,18 @@ export default function Home() {
     bio.slice(-1) === "." ? "" : "."
   }`;
 
+  const handleBio = (e: any) => {
+    e.preventDefault();
+    const value = e.target.value;
+    setBio(value);
+  };
+
   const generateBio = async (e: any) => {
     if (!bio) {
       toast("Please enter a job or hobby", { icon: "❌" });
       return;
     }
-    if (bio.length > 100) {
+    if (bio.length > MAX_BIO_LENGTH) {
       toast("Bio is too long", { icon: "❌" });
       return;
     }
@@ -104,11 +112,16 @@ export default function Home() {
           </div>
           <textarea
             value={bio}
-            onChange={(e) => setBio(e.target.value)}
+            onChange={(e) => handleBio(e)}
             rows={4}
-            className="w-full rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm focus:border-black focus:ring-black my-5 dark:bg-zinc-900 dark:border-zinc-700 dark:text-gray-100 dark:focus:border-white dark:focus:ring-white"
+            maxLength={MAX_BIO_LENGTH}
+            className="w-full rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm focus:border-black focus:ring-black my-2 dark:bg-zinc-900 dark:border-zinc-700 dark:text-gray-100 dark:focus:border-white dark:focus:ring-white"
             placeholder={"e.g. Senior Software Engineer at Google"}
           />
+          <p className="text-right text-sm text-gray-500 dark:text-gray-400">
+            {MAX_BIO_LENGTH - bio.length} characters
+          </p>
+
           <div className="flex mb-5 items-center space-x-3">
             <Image
               src="/2-black.png"
@@ -140,7 +153,11 @@ export default function Home() {
           )}
         </div>
 
-        <Toaster position="top-center" reverseOrder={false} toastOptions={{ duration: 2000 }} />
+        <Toaster
+          position="top-center"
+          reverseOrder={false}
+          toastOptions={{ duration: 2000 }}
+        />
 
         {generatedBios && (
           <div className="space-y-10 my-3">
@@ -165,7 +182,9 @@ export default function Home() {
                     }}
                     key={generatedBio}
                   >
-                    <p className="text-gray-900 dark:text-gray-100">{generatedBio}</p>
+                    <p className="text-gray-900 dark:text-gray-100">
+                      {generatedBio}
+                    </p>
                   </div>
                 ))}
             </div>
